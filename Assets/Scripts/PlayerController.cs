@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         countText.text = "Count: " + count.ToString();
 
-        if(count >= 12) {
+        if(count >= 6) {
             winTextObject.SetActive(true);
         }
     }
@@ -56,6 +56,13 @@ public class PlayerController : MonoBehaviour
 
         other.gameObject.SetActive(false);
         count = count + 1;
+
+        SetCountText();
+        }
+
+        if (other.gameObject.CompareTag("EvilPickUp")) {
+        other.gameObject.SetActive(false);
+        count = count - 1;
 
         SetCountText();
         }
