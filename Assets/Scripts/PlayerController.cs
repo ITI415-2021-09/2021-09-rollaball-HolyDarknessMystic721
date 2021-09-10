@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public GameObject loseTextObject;
 
     private Rigidbody rb;
     private int count;
+    private int yellowLeft;
     private float movementX;
     private float movementY;
 
@@ -20,10 +22,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
+        count = 0; 
+        yellowLeft = 12;
 
         SetCountText();
         winTextObject.SetActive(false);
+        loseTextObject.SetActive(false);
     }
 
     private void OnMove(InputValue movementValue) {
@@ -36,10 +40,13 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText() {
 
-        countText.text = "Count: " + count.ToString();
+        countText.text = "You must get 6 points to win. Count: " + count.ToString();
 
         if(count >= 6) {
             winTextObject.SetActive(true);
+
+        } else if (yellowLeft == 0 & count < 6) {
+            loseTextObject.SetActive(true);
         }
     }
 
@@ -56,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
         other.gameObject.SetActive(false);
         count = count + 1;
+        yellowLeft = yellowLeft -1;
 
         SetCountText();
         }
